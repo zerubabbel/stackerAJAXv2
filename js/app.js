@@ -1,4 +1,4 @@
-// this function takes the question object returned by the StackOverflow request
+x// this function takes the question object returned by the StackOverflow request
 // and returns new result to be appended to DOM
 var showQuestion = function(question) {
 	
@@ -70,7 +70,7 @@ var getUnanswered = function(tags) {
 		$('.search-results').html(searchResults);
 		//$.each is a higher order function. It takes an array and a function as an argument.
 		//The function is executed once for each item in the array.
-		$.each(result.items, function(i, item) {
+	 	$.each(result.items, function(i, item) {
 			var question = showQuestion(item);
 			$('.results').append(question);
 		});
@@ -82,6 +82,19 @@ var getUnanswered = function(tags) {
 };
 
 
+function getInspiration(answerers){
+  var params = {
+    tag: answerers,
+    r: 'jsonp'
+  };
+  url = 'http://api.stackexchange.com/2.2/tags/' + answerers + '/top-answerers/all_time?site=stackoverflow';
+
+  $.getJSON(url, params, function(data){
+    console.log(data.items);
+  });
+}
+
+
 $(document).ready( function() {
 	$('.unanswered-getter').submit( function(e){
 		e.preventDefault();
@@ -91,4 +104,14 @@ $(document).ready( function() {
 		var tags = $(this).find("input[name='tags']").val();
 		getUnanswered(tags);
 	});
+
+
+
+	$('.inspiration-getter').submit(function(){
+		event.preventDefault();
+		$('.results').html('');
+		var answerers = $(this).find("input[name='answerers']").val(); 
+		getInspiration(answerers);
+
+	})
 });
