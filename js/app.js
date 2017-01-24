@@ -31,6 +31,26 @@ var showQuestion = function(question) {
 	return result;
 };
 
+var showQuestion2 = function(question){
+	//clone our result template code
+	var result= $('.templates .answerer').clone();
+	var questionElem = result.find('.answerer-text a');
+	questionElem.attr('href', question.user.link);
+	questionElem.text(question.user.display_name);
+
+	var scoreElem = result.find ('.score-amount');
+	scoreElem.text(question.score);
+
+
+	var postElem = result.find ('.post-amount');
+	postElem.text(question.post_count);
+	return result; 
+
+};
+
+
+
+
 
 // this function takes the results object from StackOverflow
 // and returns the number of results and tags to be appended to DOM
@@ -38,6 +58,11 @@ var showSearchResults = function(query, resultNum) {
 	var results = resultNum + ' results for <strong>' + query + '</strong>';
 	return results;
 };
+
+var showSearchResults2 = function(query, resultNum) {
+	var results = resultNum + ' results for <strong>' + query + '</strong>';
+	return results; 
+}
 
 // takes error string and turns it into displayable DOM element
 var showError = function(error){
@@ -74,6 +99,7 @@ var getUnanswered = function(tags) {
 			var question = showQuestion(item);
 			$('.results').append(question);
 		});
+		console.log(result.items);
 	})
 	.fail(function(jqXHR, error){ //this waits for the ajax to return with an error promise object
 		var errorElem = showError(error);
@@ -83,6 +109,7 @@ var getUnanswered = function(tags) {
 
 
 function getInspiration(answerers){
+<<<<<<< HEAD
   var params = {
     tag: answerers,
     r: 'jsonp'
@@ -93,6 +120,39 @@ function getInspiration(answerers){
     console.log(data.items);
   });
 }
+=======
+
+	var request = { 
+		tag: answerers,
+	};
+
+	$.ajax({
+		url: 'http://api.stackexchange.com/2.2/tags/' + answerers + '/top-answerers/all_time?site=stackoverflow',
+		data: request,
+		dataType: "jsonp",//use jsonp to avoid cross origin issues
+		type: "GET",
+	})
+
+	.done(function(result){ //this waits for the ajax to return with a succesful promise object
+		console.log(result.items);
+		var searchResults2 = showSearchResults2 (request.tag, result.items.length);
+		$('.search-results').html(searchResults2);
+		$.each(result.items, function(index, value){
+			var question = showQuestion2(value);
+			$('.results').append(question);
+		})
+
+
+	})
+
+	.fail(function(jqXHR, error){
+
+		var errorElem = showError(error);
+		$('.search-results').append(errorElem);
+	});
+
+};
+>>>>>>> master
 
 
 $(document).ready( function() {
@@ -107,11 +167,19 @@ $(document).ready( function() {
 
 
 
+<<<<<<< HEAD
 	$('.inspiration-getter').submit(function(){
+=======
+	$('.inspiration-getter').submit(function(event){
+>>>>>>> master
 		event.preventDefault();
 		$('.results').html('');
 		var answerers = $(this).find("input[name='answerers']").val(); 
 		getInspiration(answerers);
 
 	})
+<<<<<<< HEAD
 });
+=======
+});
+>>>>>>> master
