@@ -109,16 +109,6 @@ var getUnanswered = function(tags) {
 
 
 function getInspiration(answerers){
-  var params = {
-    tag: answerers,
-    r: 'jsonp'
-  };
-  url = 'http://api.stackexchange.com/2.2/tags/' + answerers + '/top-answerers/all_time?site=stackoverflow';
-
-  $.getJSON(url, params, function(data){
-    console.log(data.items);
-  });
-}
 
 	var request = { 
 		tag: answerers,
@@ -165,8 +155,6 @@ $(document).ready( function() {
 
 
 
-	$('.inspiration-getter').submit(function(){
-
 	$('.inspiration-getter').submit(function(event){
 		event.preventDefault();
 		$('.results').html('');
@@ -174,7 +162,4 @@ $(document).ready( function() {
 		getInspiration(answerers);
 
 	})
-
 });
-});
-
