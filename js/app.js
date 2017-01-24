@@ -109,7 +109,6 @@ var getUnanswered = function(tags) {
 
 
 function getInspiration(answerers){
-<<<<<<< HEAD
   var params = {
     tag: answerers,
     r: 'jsonp'
@@ -120,7 +119,6 @@ function getInspiration(answerers){
     console.log(data.items);
   });
 }
-=======
 
 	var request = { 
 		tag: answerers,
@@ -152,7 +150,7 @@ function getInspiration(answerers){
 	});
 
 };
->>>>>>> master
+
 
 
 $(document).ready( function() {
@@ -167,19 +165,16 @@ $(document).ready( function() {
 
 
 
-<<<<<<< HEAD
 	$('.inspiration-getter').submit(function(){
-=======
+
 	$('.inspiration-getter').submit(function(event){
->>>>>>> master
 		event.preventDefault();
 		$('.results').html('');
 		var answerers = $(this).find("input[name='answerers']").val(); 
 		getInspiration(answerers);
 
 	})
-<<<<<<< HEAD
+
 });
-=======
 });
->>>>>>> master
+
